@@ -18,10 +18,9 @@ public class PriceController {
     @Autowired
     private PriceServiceIF priceServiceIF;
 
-    @Scheduled(fixedRate = 10000)
+    @Scheduled(fixedDelay = 20000)
     @GetMapping(value = "/price")
     public String getPrice() throws IOException {
-        System.out.println(priceServiceIF.getPrice());
         return priceServiceIF.getPrice();
         
     }

@@ -28,7 +28,7 @@ public class PriceServiceImpl implements PriceServiceIF {
         Map<LocalDateTime, Double> priceStore = priceRepository.savePrice(price);
         System.out.println("####################PRICES STORAGE###################");
         priceStore.entrySet().stream().forEach(System.out::println);
-        return map.get("lprice");
+        return price;
     }
     
 }
