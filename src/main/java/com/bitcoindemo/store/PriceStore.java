@@ -7,14 +7,14 @@ import java.util.Map;
 public class PriceStore {
 
     private static PriceStore instance = null;
-    private Map<LocalDateTime,Double> pricesMap;
+    private Map<LocalDateTime, Double> pricesMap;
 
     private PriceStore() {
         pricesMap = new HashMap<>();
     }
 
     public static PriceStore getInstance() {
-        if(instance == null){
+        if (instance == null) {
             instance = new PriceStore();
         }
         return instance;
@@ -28,6 +28,11 @@ public class PriceStore {
         this.pricesMap = pricesMap;
     }
 
-    
+    public Double getMaxPrice() {
+        return pricesMap.entrySet().stream()
+        .max(Map.Entry.comparingByValue())
+        .get().getValue();
+
+    }   
     
 }
