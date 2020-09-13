@@ -18,14 +18,13 @@ public class PriceRepository {
     @Autowired
     private UtilDateTimeFormatter utilFormatter;
 
-    public synchronized Map<LocalDateTime, Double> savePrice(String price) throws InterruptedException {
+    public Map<LocalDateTime, Double> savePrice(String price) {
         String dateTime = utilFormatter.convertToString(LocalDateTime.now());
         LocalDateTime dateTimeParsed = utilFormatter.convertToLocalDateTime(dateTime);
         Double p = new Double(price);
         PriceStore priceStore = PriceStore.getInstance();
         Map<LocalDateTime, Double> pricesMap = priceStore.getPricesMap();
         pricesMap.put(dateTimeParsed, p);
-        Thread.sleep(1000);
         return pricesMap;
     }
 

@@ -7,7 +7,7 @@ import java.util.Map;
 public class PriceStore {
 
     private static PriceStore instance = null;
-    private volatile Map<LocalDateTime, Double> pricesMap;
+    private Map<LocalDateTime, Double> pricesMap;
 
     private PriceStore() {
         pricesMap = new HashMap<>();

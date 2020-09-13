@@ -11,26 +11,25 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 @Component
-@EnableAsync
 public class PriceGetterTask {
 
+
     @Autowired
-    private PriceRepository priceRepository;
+    private UtilHttpUrlConnection utilHttpUrlConnection;
 
     @Autowired
     private ObjectMapper mapper;
 
     @Autowired
-    private UtilHttpUrlConnection utilHttpUrlConnection;
+    private PriceRepository priceRepository;
     
-    @Async("threadPoolTaskScheduler")
     @Scheduled(fixedRate = 10000)
-    public String getPrice() throws IOException, InterruptedException {
+    @Async("taskExecutor")
+    public void getPrice() throws IOException, InterruptedException {
         String response = utilHttpUrlConnection.getPrice();
         Map<String, String> map = mapper.readValue(response, new TypeReference<Map<String, String>>() {
         });
@@ -38,7 +37,6 @@ public class PriceGetterTask {
         Map<LocalDateTime, Double> priceStore = priceRepository.savePrice(price);
         System.out.println("####################PRICES STORAGE###################" + " Thread: " + Thread.currentThread().getName());
         priceStore.entrySet().stream().forEach(System.out::println);
-        return price;
     }
     
 }
