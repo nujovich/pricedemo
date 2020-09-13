@@ -1,8 +1,6 @@
 package com.bitcoindemo.controlleradvice;
 
 import java.io.IOException;
-
-import com.bitcoindemo.exception.DatetimeFormatException;
 import com.bitcoindemo.exception.ExceptionResponse;
 import com.bitcoindemo.exception.PriceNotFoundException;
 
@@ -16,9 +14,9 @@ import org.springframework.web.context.request.WebRequest;
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice {
     
-    @ExceptionHandler(DatetimeFormatException.class)
+    @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public @ResponseBody ExceptionResponse handleDatetimeFormatException(final DatetimeFormatException exception, final WebRequest request) {
+    public @ResponseBody ExceptionResponse handleDatetimeFormatException(final IllegalArgumentException exception, final WebRequest request) {
         final ExceptionResponse ex = new ExceptionResponse();
         ex.setErrorMessage(exception.getMessage());
         ex.setErrorCode(HttpStatus.BAD_REQUEST.value());

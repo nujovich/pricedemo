@@ -1,8 +1,6 @@
 package com.bitcoindemo.controller;
 
-import java.io.IOException;
 import java.time.LocalDateTime;
-import java.util.concurrent.CompletableFuture;
 
 import com.bitcoindemo.dto.StatsDto;
 import com.bitcoindemo.exception.PriceNotFoundException;
@@ -11,8 +9,6 @@ import com.bitcoindemo.service.PriceServiceIF;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.format.annotation.DateTimeFormat.ISO;
-import org.springframework.scheduling.annotation.Async;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,13 +20,6 @@ public class PriceController {
 
     @Autowired
     private PriceServiceIF priceServiceIF;
-
-    @Scheduled(fixedDelay = 10000)
-    @Async
-    public CompletableFuture<String> getPrice() throws IOException {
-        return CompletableFuture.completedFuture(priceServiceIF.getPrice());
-
-    }
 
     @GetMapping(value = "/price/{datetime1}/{datetime2}/stats")
     public StatsDto getStats(@PathVariable("datetime1") @DateTimeFormat(iso = ISO.DATE_TIME) LocalDateTime datetime1,
