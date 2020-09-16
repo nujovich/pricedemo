@@ -10,13 +10,14 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.context.request.WebRequest;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 @ControllerAdvice
 public class ExceptionHandlerControllerAdvice {
     
-    @ExceptionHandler(IllegalArgumentException.class)
+    @ExceptionHandler(MethodArgumentTypeMismatchException.class)
     @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public @ResponseBody ExceptionResponse handleDatetimeFormatException(final IllegalArgumentException exception, final WebRequest request) {
+    public @ResponseBody ExceptionResponse handleDatetimeFormatException(final MethodArgumentTypeMismatchException exception, final WebRequest request) {
         final ExceptionResponse ex = new ExceptionResponse();
         ex.setErrorMessage(exception.getMessage());
         ex.setErrorCode(HttpStatus.BAD_REQUEST.value());

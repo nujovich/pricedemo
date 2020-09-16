@@ -18,7 +18,7 @@ public class PriceRepository {
     @Autowired
     private UtilDateTimeFormatter utilFormatter;
 
-    public Map<LocalDateTime, Double> savePrice(String price) {
+    public synchronized Map<LocalDateTime, Double> savePrice(String price) {
         String dateTime = utilFormatter.convertToString(LocalDateTime.now());
         LocalDateTime dateTimeParsed = utilFormatter.convertToLocalDateTime(dateTime);
         Double p = new Double(price);

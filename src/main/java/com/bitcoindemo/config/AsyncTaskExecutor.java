@@ -11,7 +11,7 @@ import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 @Configuration
 @EnableAsync
 @EnableScheduling
-public class SchedulerConfig implements AsyncConfigurer {
+public class AsyncTaskExecutor implements AsyncConfigurer {
 
     private static final int POOL_SIZE = 10;
 
